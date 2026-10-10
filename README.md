@@ -19,7 +19,8 @@ Add screenshots of the running application here.
 
 **Home Page**
 
-![Event Feedback System Home Page](docs/homepage.png)
+![Event Feedback System Home Page](<img width="865" height="446" alt="feed back system front" src="https://github.com/user-attachments/assets/1c5bd655-6732-4d7b-b327-76d186e6e9d5" />
+)
 
 **Events Page**
 
