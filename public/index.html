@@ -3,24 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sysslan IT Solutions - Event Feedback Portal</title>
-  <meta name="description" content="Share your valuable feedback on our events to help us improve and innovate.">
+
+  <title>Event Feedback System | Event Discovery & Reviews</title>
+  <meta
+    name="description"
+    content="Explore events, share your experience, and help improve future events through the Event Feedback System."
+  >
+
+  <meta name="theme-color" content="#0b1120">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-  <!-- Glassmorphic Navbar -->
+  <!-- Navigation -->
   <header>
     <div class="container nav-container">
-      <a href="index.html" class="logo-link">
-        <div class="logo-text">Sysslan <span class="logo-accent">IT Solutions</span></div>
+      <a href="index.html" class="logo-link" aria-label="Event Feedback System Home">
+        <div class="logo-text">
+          Event <span class="logo-accent">Feedback System</span>
+        </div>
       </a>
-      <nav>
+
+      <nav aria-label="Main navigation">
         <ul>
-          <li><a href="index.html" class="nav-link active" id="nav-home">Home</a></li>
-          <li><a href="events.html" class="nav-link" id="nav-events">Events</a></li>
-          <li><a href="feedback.html" class="nav-link" id="nav-feedback">Feedback</a></li>
-          <li><a href="admin.html" class="nav-link" id="nav-admin">Dashboard</a></li>
+          <li>
+            <a href="index.html" class="nav-link active" id="nav-home">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="events.html" class="nav-link" id="nav-events">
+              Events
+            </a>
+          </li>
+          <li>
+            <a href="feedback.html" class="nav-link" id="nav-feedback">
+              Feedback
+            </a>
+          </li>
+          <li>
+            <a href="admin.html" class="nav-link" id="nav-admin">
+              Dashboard
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -28,49 +54,102 @@
 
   <!-- Main Content -->
   <main class="container">
-    
+
     <!-- Hero Section -->
     <section class="hero">
-      <span class="hero-tag">Internship Cohort Project</span>
-      <h1 class="hero-title">Full Stack Event<br>Feedback System</h1>
+      <span class="hero-tag">Discover. Participate. Share.</span>
+
+      <h1 class="hero-title">
+        Every Event Deserves<br>
+        Better Feedback
+      </h1>
+
       <p class="hero-desc">
-        A platform designed to collect, manage, and analyze student and attendee feedback for Sysslan IT Solutions' events, masterclasses, and seminars. Help us refine and shape future learning cohorts.
+        Explore upcoming events, share your experience, and help create
+        better experiences for everyone. A simple platform for event
+        discovery, feedback collection, and reviewing attendee responses.
       </p>
+
       <div class="hero-actions">
         <a href="events.html" class="btn btn-primary">
           Explore Events
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14m-7-7 7 7-7 7"/>
+          </svg>
         </a>
-        <a href="feedback.html" class="btn btn-secondary">Give Feedback</a>
+
+        <a href="feedback.html" class="btn btn-secondary">
+          Share Feedback
+        </a>
       </div>
     </section>
 
-    <!-- Company Focus Section (Sysslan IT Solutions domains) -->
+    <!-- Platform Overview -->
     <section style="margin-top: 60px;">
-      <h2 class="section-title">Our Technology Domains</h2>
+      <h2 class="section-title">What You Can Do</h2>
+
       <div class="grid">
-        
-        <!-- Cloud Computing -->
+
+        <!-- Discover Events -->
         <div class="card">
-          <span class="card-tag cloud">Cloud Computing</span>
-          <h3 class="card-title">Scalable Infrastructure</h3>
-          <p class="card-body">Providing scalable cloud computing platforms, containerized environments, and cloud architecture optimization designed to empower businesses.</p>
+          <span class="card-tag cloud">Explore</span>
+          <h3 class="card-title">Discover Events</h3>
+          <p class="card-body">
+            Browse available events and explore their details, including
+            schedules, locations, and other relevant information.
+          </p>
         </div>
 
-        <!-- Blockchain -->
+        <!-- Share Feedback -->
         <div class="card">
-          <span class="card-tag blockchain">Blockchain</span>
-          <h3 class="card-title">Decentralized Web</h3>
-          <p class="card-body">Building cutting-edge blockchain protocols, smart contracts, and secure dApps to ensure operational integrity and trustless execution.</p>
+          <span class="card-tag blockchain">Your Experience</span>
+          <h3 class="card-title">Share Feedback</h3>
+          <p class="card-body">
+            Share your experience and opinions to help identify what worked
+            well and where future events could improve.
+          </p>
         </div>
 
-        <!-- Artificial Intelligence -->
+        <!-- Review Insights -->
         <div class="card">
-          <span class="card-tag ai-ml">Artificial Intelligence</span>
-          <h3 class="card-title">Intelligent AI Systems</h3>
-          <p class="card-body">Developing cognitive artificial intelligence, neural networks, and advanced machine learning models to solve complex real-world challenges.</p>
+          <span class="card-tag ai-ml">Insights</span>
+          <h3 class="card-title">Review Feedback</h3>
+          <p class="card-body">
+            Review submitted responses and explore feedback summaries
+            through the dashboard, using the data available in the system.
+          </p>
         </div>
 
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section style="margin-top: 60px; margin-bottom: 60px;">
+      <div class="card">
+        <h2 class="card-title">Your Feedback Makes a Difference</h2>
+        <p class="card-body">
+          Have something to share? Explore the available events and let
+          your feedback contribute to better future experiences.
+        </p>
+
+        <div class="hero-actions" style="margin-top: 24px;">
+          <a href="events.html" class="btn btn-primary">
+            Browse Events
+          </a>
+          <a href="feedback.html" class="btn btn-secondary">
+            Give Feedback
+          </a>
+        </div>
       </div>
     </section>
 
@@ -80,15 +159,20 @@
   <footer>
     <div class="container footer-container">
       <div>
-        <p>&copy; 2026 Sysslan IT Solutions. All rights reserved.</p>
+        <p>
+          &copy; 2026 Event Feedback System.
+          Built as a web development project.
+        </p>
       </div>
+
       <div class="footer-socials">
-        <a href="https://linkedin.com/company/sysslan-it-solutions" target="_blank" class="social-link">LinkedIn</a>
-        <a href="mailto:info@sysslan.com" class="social-link">Email</a>
-        <a href="https://www.sysslan.com" target="_blank" class="social-link">Website</a>
+        <a href="events.html" class="social-link">Events</a>
+        <a href="feedback.html" class="social-link">Feedback</a>
+        <a href="admin.html" class="social-link">Dashboard</a>
       </div>
     </div>
   </footer>
 
 </body>
 </html>
+```

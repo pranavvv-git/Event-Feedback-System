@@ -3,65 +3,145 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events - Sysslan IT Solutions</title>
-  <meta name="description" content="Browse our upcoming and past events, workshops, and cohorts.">
+
+  <title>Explore Events | Event Feedback System</title>
+  <meta
+    name="description"
+    content="Explore events, discover new learning opportunities, and share your feedback through the Event Feedback System."
+  >
+
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-  <!-- Glassmorphic Navbar -->
+  <!-- Navigation -->
   <header>
     <div class="container nav-container">
       <a href="index.html" class="logo-link">
-        <div class="logo-text">Sysslan <span class="logo-accent">IT Solutions</span></div>
+        <div class="logo-text">
+          Event <span class="logo-accent">Feedback System</span>
+        </div>
       </a>
+
       <nav>
         <ul>
-          <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
-          <li><a href="events.html" class="nav-link active" id="nav-events">Events</a></li>
-          <li><a href="feedback.html" class="nav-link" id="nav-feedback">Feedback</a></li>
-          <li><a href="admin.html" class="nav-link" id="nav-admin">Dashboard</a></li>
+          <li>
+            <a href="index.html" class="nav-link" id="nav-home">
+              Home
+            </a>
+          </li>
+
+          <li>
+            <a href="events.html" class="nav-link active" id="nav-events">
+              Events
+            </a>
+          </li>
+
+          <li>
+            <a href="feedback.html" class="nav-link" id="nav-feedback">
+              Feedback
+            </a>
+          </li>
+
+          <li>
+            <a href="admin.html" class="nav-link" id="nav-admin">
+              Dashboard
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Main Content -->
+  <!-- Events Section -->
   <main class="container">
-    <h2 class="section-title">Our Cohorts & Events</h2>
-    
-    <!-- Grid of Events (loaded dynamically) -->
-    <div class="grid" id="events-grid">
-      <!-- Loading Skeleton / Placeholder -->
-      <div class="card" style="opacity: 0.6;">
-        <span class="card-tag">Loading...</span>
-        <h3 class="card-title">Fetching Events</h3>
-        <p class="card-body">Connecting to the Sysslan IT Solutions server to retrieve active cohorts and events...</p>
+
+    <section class="hero">
+      <span class="hero-tag">Discover & Participate</span>
+
+      <h1 class="hero-title">
+        Find Your Next Event
+      </h1>
+
+      <p class="hero-desc">
+        Explore available events, discover new opportunities,
+        and share your experience to help make future events better.
+      </p>
+
+      <div class="hero-actions">
+        <a href="feedback.html" class="btn btn-primary">
+          Share Feedback
+        </a>
+
+        <a href="index.html" class="btn btn-secondary">
+          Back to Home
+        </a>
       </div>
-    </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Explore Events</h2>
+
+      <p class="card-body" style="text-align: center; margin-bottom: 32px;">
+        Browse the events available below and select an opportunity
+        that interests you.
+      </p>
+
+      <!-- Events are loaded dynamically by app.js -->
+      <div class="grid" id="events-grid">
+
+        <div class="card" style="opacity: 0.75;">
+          <span class="card-tag">Please Wait</span>
+
+          <h3 class="card-title">Loading Events...</h3>
+
+          <p class="card-body">
+            We're retrieving event information. Available events
+            will appear here shortly.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- Footer -->
   <footer>
     <div class="container footer-container">
+
       <div>
-        <p>&copy; 2026 Sysslan IT Solutions. All rights reserved.</p>
+        <p>
+          &copy; 2026 Event Feedback System.
+          Built as a web development project.
+        </p>
       </div>
+
       <div class="footer-socials">
-        <a href="https://linkedin.com/company/sysslan-it-solutions" target="_blank" class="social-link">LinkedIn</a>
-        <a href="mailto:info@sysslan.com" class="social-link">Email</a>
-        <a href="https://www.sysslan.com" target="_blank" class="social-link">Website</a>
+        <a href="index.html" class="social-link">Home</a>
+        <a href="feedback.html" class="social-link">Feedback</a>
+        <a href="admin.html" class="social-link">Dashboard</a>
       </div>
+
     </div>
   </footer>
 
-  <!-- App JavaScript logic -->
+  <!-- Application Logic -->
   <script src="app.js"></script>
+
   <script>
-    // Initialize events page loading
     document.addEventListener('DOMContentLoaded', () => {
-      loadEventsPage();
+      if (typeof loadEventsPage === 'function') {
+        loadEventsPage();
+      } else {
+        console.error(
+          'Unable to load events: loadEventsPage() was not found in app.js.'
+        );
+      }
     });
   </script>
+
 </body>
 </html>
+```

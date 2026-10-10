@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feedback Dashboard - Sysslan IT Solutions</title>
-  <meta name="description" content="View and analyze all event feedback records.">
+  <title>Feedback Dashboard | Event Feedback System</title>
+  <meta name="description" content="View event feedback analytics, ratings, and submitted reviews in the Event Feedback System.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Glassmorphic Navbar -->
+  <!-- Navigation -->
   <header>
     <div class="container nav-container">
       <a href="index.html" class="logo-link">
-        <div class="logo-text">Sysslan <span class="logo-accent">IT Solutions</span></div>
+        <div class="logo-text">Event <span class="logo-accent">Feedback System</span></div>
       </a>
+
       <nav>
         <ul>
           <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
@@ -26,80 +27,77 @@
     </div>
   </header>
 
-  <!-- Main Content -->
+  <!-- Dashboard -->
   <main class="container">
-    <h2 class="section-title">Feedback Analytics & Dashboard</h2>
-    
-    <!-- Analytics Header Cards -->
+    <h2 class="section-title">Feedback Analytics &amp; Dashboard</h2>
+
+    <!-- Summary Cards -->
     <div class="feedback-summary">
-      
-      <!-- Total Responses -->
+
       <div class="summary-card">
         <div class="summary-num" id="total-responses">0</div>
         <div class="summary-label">Total Responses</div>
       </div>
 
-      <!-- Average Rating -->
       <div class="summary-card">
         <div class="summary-num" id="average-rating">0.0</div>
         <div class="summary-label">Average Rating</div>
       </div>
 
-      <!-- Positive Feedback Ratio -->
       <div class="summary-card">
         <div class="summary-num" id="positive-percent">0%</div>
-        <div class="summary-label">Positive (4-5★)</div>
+        <div class="summary-label">Positive (4–5★)</div>
       </div>
 
     </div>
 
-    <!-- Feedbacks Container -->
+    <!-- Submitted Feedback -->
     <section>
-      <h3 style="font-size: 1.5rem; margin-bottom: 20px; font-weight: 600;">Submitted Reviews</h3>
+      <h3 style="font-size: 1.5rem; margin-bottom: 20px; font-weight: 600;">
+        Submitted Reviews
+      </h3>
+
       <div class="card" id="feedback-list-container">
-        
-        <!-- Loading State -->
+
         <div id="feedback-loading" class="empty-state">
           <div class="empty-icon">&#8635;</div>
           <p>Loading submitted feedback from the database...</p>
         </div>
 
-        <!-- Feed List -->
         <div id="feedback-list" style="display: none;"></div>
 
-        <!-- Empty State -->
         <div id="feedback-empty" class="empty-state" style="display: none;">
           <div class="empty-icon">&#9734;</div>
           <p>No feedback has been submitted yet. Be the first to share your thoughts!</p>
-          <a href="feedback.html" class="btn btn-primary" style="margin-top: 20px;">Give Feedback</a>
+          <a href="feedback.html" class="btn btn-primary" style="margin-top: 20px;">
+            Give Feedback
+          </a>
         </div>
 
       </div>
     </section>
-
   </main>
 
   <!-- Footer -->
   <footer>
     <div class="container footer-container">
-      <div>
-        <p>&copy; 2026 Sysslan IT Solutions. All rights reserved.</p>
-      </div>
+      <p>&copy; 2026 Event Feedback System. Built as a full-stack project.</p>
       <div class="footer-socials">
-        <a href="https://linkedin.com/company/sysslan-it-solutions" target="_blank" class="social-link">LinkedIn</a>
-        <a href="mailto:info@sysslan.com" class="social-link">Email</a>
-        <a href="https://www.sysslan.com" target="_blank" class="social-link">Website</a>
+        <a href="index.html" class="social-link">Home</a>
+        <a href="events.html" class="social-link">Explore Events</a>
+        <a href="feedback.html" class="social-link">Share Feedback</a>
       </div>
     </div>
   </footer>
 
-  <!-- App JavaScript logic -->
+  <!-- Application Scripts -->
   <script src="app.js"></script>
   <script>
-    // Initialize Dashboard loading
     document.addEventListener('DOMContentLoaded', () => {
       loadDashboard();
     });
   </script>
+
 </body>
 </html>
+```

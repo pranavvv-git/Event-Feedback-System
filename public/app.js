@@ -1,311 +1,408 @@
-// Shared Configuration
-const API_URL = '';
 
-// Helper to escape HTML characters (prevents XSS vulnerabilities)
-function escapeHTML(str) {
-  if (!str) return '';
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+/* ============================================
+   Event Feedback System
+   Frontend Application Logic
+============================================ */
+
+const API_URL = "";
+
+/* ---------- Helper Functions ---------- */
+
+function escapeHTML(value) {
+  if (value === null || value === undefined) return "";
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-// Format Iso Date to readable string
-function formatDate(isoString) {
-  try {
-    const date = new Date(isoString);
-    return date.toLocaleDateString(undefined, { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  } catch (e) {
-    return isoString;
-  }
+function formatDate(value) {
+  if (!value) return "Date unavailable";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) return String(value);
+
+  return date.toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 }
 
-// Generate star characters based on rating integer
 function getStarCharacters(rating) {
-  const fullStars = '★'.repeat(rating);
-  const emptyStars = '☆'.repeat(5 - rating);
-  return `<span class="fb-stars">${fullStars}${emptyStars}</span>`;
+  const score = Math.max(
+    0,
+    Math.min(5, Math.round(Number(rating) || 0))
+  );
+
+  return `<span class="fb-stars" aria-label="${score} out of 5 stars">${"★".repeat(score)}${"☆".repeat(5 - score)}</span>`;
 }
 
-// ==========================================
-// 1. Events Page Loader (events.html)
-// ==========================================
+async function fetchAPI(endpoint, options = {}) {
+  const response = await fetch(`${API_URL}${endpoint}`, options);
+
+  if (!response.ok) {
+    throw new Error(`Request failed (${response.status})`);
+  }
+
+  return response.json();
+}
+
+function showMessage(container, title, message) {
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="card" style="grid-column: 1 / -1; text-align: center;">
+      <h3 class="card-title">${escapeHTML(title)}</h3>
+      <p class="card-body">${escapeHTML(message)}</p>
+    </div>
+  `;
+}
+
+/* ---------- Events Page ---------- */
+
 async function loadEventsPage() {
-  const eventsGrid = document.getElementById('events-grid');
+  const eventsGrid = document.getElementById("events-grid");
   if (!eventsGrid) return;
 
   try {
-    const response = await fetch(`${API_URL}/api/events`);
-    if (!response.ok) throw new Error('Could not fetch events');
-    const events = await response.json();
+    const events = await fetchAPI("/api/events");
 
-    if (events.length === 0) {
-      eventsGrid.innerHTML = `
-        <div class="card" style="grid-column: 1/-1; text-align: center; padding: 48px;">
-          <h3 class="card-title">No Events Available</h3>
-          <p class="card-body">We don't have any cohorts scheduled at this time. Please check back later!</p>
-        </div>
-      `;
+    if (!Array.isArray(events) || events.length === 0) {
+      showMessage(
+        eventsGrid,
+        "No Events Available",
+        "There are no events to display right now."
+      );
       return;
     }
 
-    eventsGrid.innerHTML = events.map(ev => {
-      // Map category class name
-      const categoryClass = ev.category.toLowerCase().replace(/[^a-z0-9]/g, '-');
-      
+    eventsGrid.innerHTML = events.map((event) => {
+      const category = event.category || "General";
+      const categoryClass = category
+        .toLowerCase()
+        .replace(/[^a-z0-9-]/g, "-");
+
       return `
-        <div class="card">
-          <span class="card-tag ${categoryClass}">${escapeHTML(ev.category)}</span>
-          <h3 class="card-title">${escapeHTML(ev.title)}</h3>
-          <p class="card-body">${escapeHTML(ev.description)}</p>
+        <article class="card">
+          <span class="card-tag ${escapeHTML(categoryClass)}">
+            ${escapeHTML(category)}
+          </span>
+
+          <h3 class="card-title">
+            ${escapeHTML(event.title || "Untitled Event")}
+          </h3>
+
+          <p class="card-body">
+            ${escapeHTML(event.description || "No description available.")}
+          </p>
+
           <div class="card-meta">
             <div class="meta-item">
-              <span class="meta-icon">&#128197;</span>
-              <span>${escapeHTML(ev.date)}</span>
+              <span class="meta-icon" aria-hidden="true">&#128197;</span>
+              <span>${escapeHTML(event.date || "Date to be announced")}</span>
             </div>
+
             <div class="meta-item">
-              <span class="meta-icon">&#128205;</span>
-              <span>${escapeHTML(ev.location)}</span>
+              <span class="meta-icon" aria-hidden="true">&#128205;</span>
+              <span>${escapeHTML(event.location || "Location to be announced")}</span>
             </div>
           </div>
-          <a href="feedback.html?event_id=${ev.id}" class="btn btn-primary" style="margin-top: 24px; text-align: center;">
-            Submit Feedback
-          </a>
-        </div>
-      `;
-    }).join('');
 
+          <a
+            href="feedback.html?event_id=${encodeURIComponent(event.id)}"
+            class="btn btn-primary"
+            style="margin-top: 24px; text-align: center;"
+          >
+            Share Feedback
+          </a>
+        </article>
+      `;
+    }).join("");
   } catch (error) {
-    console.error('Error fetching events:', error);
-    eventsGrid.innerHTML = `
-      <div class="card" style="grid-column: 1/-1; text-align: center; border-color: var(--error); padding: 48px;">
-        <h3 class="card-title" style="color: var(--error);">Error Loading Events</h3>
-        <p class="card-body">Could not connect to the backend server. Please verify the server is running.</p>
-        <button onclick="loadEventsPage()" class="btn btn-secondary" style="margin-top: 16px;">Try Again</button>
-      </div>
-    `;
+    console.error("Unable to load events:", error);
+
+    showMessage(
+      eventsGrid,
+      "Unable to Load Events",
+      "Please check that the server is running, then refresh the page."
+    );
   }
 }
 
-// ==========================================
-// 2. Feedback Form Logic (feedback.html)
-// ==========================================
+/* ---------- Feedback Form ---------- */
+
 async function initFeedbackForm() {
-  const form = document.getElementById('feedback-form');
-  const eventSelect = document.getElementById('event_id');
-  const errorBanner = document.getElementById('error-banner');
-  const errorMessage = document.getElementById('error-message');
-  const feedbackCard = document.getElementById('feedback-card');
+  const form = document.getElementById("feedback-form");
+  const eventSelect = document.getElementById("event_id");
+  const errorBanner = document.getElementById("error-banner");
+  const errorMessage = document.getElementById("error-message");
+  const feedbackCard = document.getElementById("feedback-card");
 
   if (!form || !eventSelect) return;
 
-  // Clear states
-  errorBanner.style.display = 'none';
-
-  // Fetch events to populate dropdown selection
-  try {
-    const response = await fetch(`${API_URL}/api/events`);
-    if (!response.ok) throw new Error('Could not fetch events');
-    const events = await response.json();
-
-    events.forEach(ev => {
-      const option = document.createElement('option');
-      option.value = ev.id;
-      option.textContent = `${ev.title} (${ev.category})`;
-      eventSelect.appendChild(option);
-    });
-
-    // Check URL parameters for event_id auto-selection (Level 4: Task 1 integration)
-    const urlParams = new URLSearchParams(window.location.search);
-    const eventIdParam = urlParams.get('event_id');
-    if (eventIdParam) {
-      eventSelect.value = eventIdParam;
-    }
-
-  } catch (error) {
-    console.error('Failed to load events for form dropdown:', error);
-    errorMessage.textContent = 'Failed to load events. Backend server may be offline.';
-    errorBanner.style.display = 'flex';
+  function showError(message) {
+    if (errorMessage) errorMessage.textContent = message;
+    if (errorBanner) errorBanner.style.display = "flex";
   }
 
-  // Handle Frontend Form Validation & Submit (Level 4: Task 4)
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  function hideError() {
+    if (errorBanner) errorBanner.style.display = "none";
+  }
 
-    // Reset error text displays
-    document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
-    errorBanner.style.display = 'none';
+  function setFieldError(fieldId, message) {
+    const element = document.getElementById(fieldId);
+    if (element) element.textContent = message;
+  }
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
+  hideError();
+
+  try {
+    const events = await fetchAPI("/api/events");
+
+    eventSelect.replaceChildren();
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Choose an event";
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    eventSelect.appendChild(placeholder);
+
+    if (Array.isArray(events)) {
+      events.forEach((event) => {
+        const option = document.createElement("option");
+        option.value = String(event.id);
+        option.textContent =
+          `${event.title || "Untitled Event"} (${event.category || "General"})`;
+        eventSelect.appendChild(option);
+      });
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const selectedEventId = params.get("event_id");
+
+    if (selectedEventId !== null) {
+      const matchingOption = Array.from(eventSelect.options).find(
+        (option) => option.value === selectedEventId
+      );
+
+      if (matchingOption) {
+        eventSelect.value = selectedEventId;
+      }
+    }
+  } catch (error) {
+    console.error("Unable to load events for feedback:", error);
+    showError("Could not load events. Please refresh the page and try again.");
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    hideError();
+
+    setFieldError("name-error", "");
+    setFieldError("email-error", "");
+    setFieldError("event-error", "");
+    setFieldError("rating-error", "");
+
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const commentsInput = document.getElementById("comments");
+
+    const name = nameInput?.value.trim() || "";
+    const email = emailInput?.value.trim() || "";
     const eventId = eventSelect.value;
-    const ratingEl = document.querySelector('input[name="rating"]:checked');
-    const comments = document.getElementById('comments').value.trim();
+    const comments = commentsInput?.value.trim() || "";
 
-    let isValid = true;
+    const checkedRating = form.querySelector(
+      'input[name="rating"]:checked'
+    );
 
-    // 1. Name validation
+    const rating = checkedRating
+      ? Number(checkedRating.value)
+      : 0;
+
+    let valid = true;
+
     if (!name) {
-      document.getElementById('name-error').style.display = 'block';
-      isValid = false;
+      setFieldError("name-error", "Please enter your name.");
+      valid = false;
     }
 
-    // 2. Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-      document.getElementById('email-error').style.display = 'block';
-      isValid = false;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email || !emailPattern.test(email)) {
+      setFieldError("email-error", "Please enter a valid email address.");
+      valid = false;
     }
 
-    // 3. Event selection validation
     if (!eventId) {
-      document.getElementById('event-error').style.display = 'block';
-      isValid = false;
+      setFieldError("event-error", "Please select an event.");
+      valid = false;
     }
 
-    // 4. Rating validation
-    if (!ratingEl) {
-      document.getElementById('rating-error').style.display = 'block';
-      isValid = false;
+    if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+      setFieldError("rating-error", "Please select a rating from 1 to 5.");
+      valid = false;
     }
 
-    if (!isValid) return;
+    if (!valid) return;
 
-    // Send data to Backend API (Level 4: Task 1 & Task 2)
+    const submitButton = form.querySelector('[type="submit"]');
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting...";
+    }
+
     try {
-      const payload = {
-        name,
-        email,
-        event_id: parseInt(eventId, 10),
-        rating: parseInt(ratingEl.value, 10),
-        comments
-      };
-
-      const submitResponse = await fetch(`${API_URL}/api/feedback`, {
-        method: 'POST',
+      await fetchAPI("/api/feedback", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          name,
+          email,
+          event_id: eventId,
+          rating,
+          comments
+        })
       });
 
-      const result = await submitResponse.json();
-
-      if (!submitResponse.ok) {
-        throw new Error(result.error || 'Feedback submission failed');
-      }
-
-      // Success callback - Show success UI panel (Level 4: Task 2)
-      feedbackCard.innerHTML = `
-        <div class="success-screen">
-          <div class="success-icon">&#10004;</div>
-          <h3 class="success-title">Feedback Submitted!</h3>
-          <p class="success-text">Thank you for sharing your experience, ${escapeHTML(name)}. Your thoughts help us shape a better learning environment.</p>
-          <div style="display: flex; gap: 16px; justify-content: center;">
-            <a href="admin.html" class="btn btn-primary">Go to Dashboard</a>
-            <a href="events.html" class="btn btn-secondary">Explore Events</a>
+      if (feedbackCard) {
+        feedbackCard.innerHTML = `
+          <div class="card" style="text-align: center;">
+            <h2 class="card-title">Thank You for Your Feedback!</h2>
+            <p class="card-body">
+              Your response has been submitted successfully.
+              We appreciate you taking the time to share your experience.
+            </p>
+            <a href="events.html" class="btn btn-primary">
+              Explore More Events
+            </a>
+            <a href="index.html" class="btn btn-secondary">
+              Back to Home
+            </a>
           </div>
-        </div>
-      `;
-
-    } catch (err) {
-      console.error('Submission failed:', err);
-      errorMessage.textContent = err.message || 'Error occurred while saving feedback. Please try again.';
-      errorBanner.style.display = 'flex';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+        `;
+      } else {
+        showError("Feedback submitted, but the confirmation section could not be displayed.");
+      }
+    } catch (error) {
+      console.error("Feedback submission failed:", error);
+      showError("Your feedback could not be submitted. Please check the server and try again.");
+    } finally {
+      if (submitButton && submitButton.isConnected) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Feedback";
+      }
     }
   });
 }
 
-// ==========================================
-// 3. Feedback Dashboard Analytics (admin.html)
-// ==========================================
+/* ---------- Admin Dashboard ---------- */
+
 async function loadDashboard() {
-  const loadingState = document.getElementById('feedback-loading');
-  const listContainer = document.getElementById('feedback-list');
-  const emptyState = document.getElementById('feedback-empty');
+  const totalResponses = document.getElementById("total-responses");
+  const averageRating = document.getElementById("average-rating");
+  const positivePercent = document.getElementById("positive-percent");
+  const feedbackList = document.getElementById("feedback-list");
+  const feedbackLoading = document.getElementById("feedback-loading");
+  const feedbackEmpty = document.getElementById("feedback-empty");
+  const feedbackListContainer = document.getElementById("feedback-list-container");
 
-  const totalCard = document.getElementById('total-responses');
-  const averageCard = document.getElementById('average-rating');
-  const positiveCard = document.getElementById('positive-percent');
+  if (
+    !totalResponses &&
+    !averageRating &&
+    !positivePercent &&
+    !feedbackList
+  ) {
+    return;
+  }
 
-  if (!listContainer) return;
+  if (feedbackLoading) feedbackLoading.style.display = "block";
+  if (feedbackEmpty) feedbackEmpty.style.display = "none";
 
   try {
-    const response = await fetch(`${API_URL}/api/feedback`);
-    if (!response.ok) throw new Error('Could not retrieve feedback');
-    const feedbacks = await response.json();
+    const feedback = await fetchAPI("/api/feedback");
 
-    loadingState.style.display = 'none';
-
-    if (feedbacks.length === 0) {
-      emptyState.style.display = 'block';
-      listContainer.style.display = 'none';
-      
-      // Zero out analytics cards
-      totalCard.textContent = '0';
-      averageCard.textContent = '0.0';
-      positiveCard.textContent = '0%';
-      return;
+    if (!Array.isArray(feedback)) {
+      throw new Error("Unexpected feedback data received from server.");
     }
 
-    // Calculate Dashboard Analytics (Level 5 Task 3 Verification)
-    const total = feedbacks.length;
-    const ratingSum = feedbacks.reduce((acc, curr) => acc + curr.rating, 0);
-    const avgRating = (ratingSum / total).toFixed(1);
-    
-    const positiveCount = feedbacks.filter(fb => fb.rating >= 4).length;
-    const positivePct = Math.round((positiveCount / total) * 100);
+    const total = feedback.length;
+    const ratingSum = feedback.reduce(
+      (sum, item) => sum + (Number(item.rating) || 0),
+      0
+    );
 
-    // Update Analytics UI Numbers
-    totalCard.textContent = total;
-    averageCard.textContent = avgRating;
-    positiveCard.textContent = `${positivePct}%`;
+    const average = total ? (ratingSum / total).toFixed(1) : "0.0";
 
-    // Render list of reviews
-    listContainer.innerHTML = feedbacks.map(fb => {
-      const displayComment = fb.comments ? escapeHTML(fb.comments) : '<em style="color: var(--text-muted);">No comments provided.</em>';
-      return `
-        <div class="feedback-row">
-          <div>
-            <div class="fb-user">
-              ${escapeHTML(fb.name)}
-              <span class="fb-email">&lt;${escapeHTML(fb.email)}&gt;</span>
+    const positiveCount = feedback.filter(
+      (item) => Number(item.rating) >= 4
+    ).length;
+
+    const positivePercentage = total
+      ? Math.round((positiveCount / total) * 100)
+      : 0;
+
+    if (totalResponses) totalResponses.textContent = total;
+    if (averageRating) averageRating.textContent = average;
+    if (positivePercent) {
+      positivePercent.textContent = `${positivePercentage}%`;
+    }
+
+    if (feedbackList) {
+      if (total === 0) {
+        feedbackList.innerHTML = "";
+        if (feedbackEmpty) feedbackEmpty.style.display = "block";
+      } else {
+        feedbackList.innerHTML = feedback.map((item) => `
+          <article class="feedback-item">
+            <div class="feedback-item-header">
+              <div>
+                <h3>${escapeHTML(item.name || "Anonymous")}</h3>
+                <p>${escapeHTML(item.email || "No email provided")}</p>
+              </div>
+              <div>${getStarCharacters(item.rating)}</div>
             </div>
-            ${getStarCharacters(fb.rating)}
-            <div class="fb-comment">${displayComment}</div>
-          </div>
-          <div class="fb-event-info">
-            <div class="fb-event-name">${escapeHTML(fb.event_title)}</div>
-            <div class="fb-date">${formatDate(fb.created_at)}</div>
-          </div>
-        </div>
-      `;
-    }).join('');
 
-    listContainer.style.display = 'block';
-    emptyState.style.display = 'none';
+            <p class="feedback-comment">
+              ${escapeHTML(item.comments || "No comments provided.")}
+            </p>
 
+            <div class="feedback-item-footer">
+              <span>${escapeHTML(item.event_title || "Event")}</span>
+              <span>${escapeHTML(formatDate(item.created_at))}</span>
+            </div>
+          </article>
+        `).join("");
+      }
+    }
   } catch (error) {
-    console.error('Failed to load Dashboard data:', error);
-    loadingState.style.display = 'none';
-    emptyState.style.display = 'none';
-    
-    const container = document.getElementById('feedback-list-container');
-    container.innerHTML = `
-      <div class="empty-state" style="color: var(--error);">
-        <div class="empty-icon">&#9888;</div>
-        <p>Failed to load dashboard data from the database server. Ensure server is online.</p>
-        <button onclick="loadDashboard()" class="btn btn-secondary" style="margin-top: 16px;">Refresh Dashboard</button>
-      </div>
-    `;
+    console.error("Unable to load dashboard:", error);
+
+    if (feedbackListContainer) {
+      showMessage(
+        feedbackListContainer,
+        "Dashboard Unavailable",
+        "Could not load feedback. Please check the server and refresh the page."
+      );
+    } else if (feedbackList) {
+      showMessage(
+        feedbackList,
+        "Dashboard Unavailable",
+        "Could not load feedback. Please check the server and refresh the page."
+      );
+    }
+  } finally {
+    if (feedbackLoading) feedbackLoading.style.display = "none";
   }
 }

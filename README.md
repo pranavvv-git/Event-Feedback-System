@@ -1,15 +1,16 @@
 # Event Feedback System
 
-A web-based application for exploring events and managing event feedback. Built with Node.js, it connects a frontend interface with backend APIs and database operations.
+A web-based application designed to collect and manage feedback for events through a simple and user-friendly interface.
+
+The project focuses on making feedback submission easier and helping organizers keep event responses organized in one place.
 
 ## Features
 
-- Browse events with details such as titles, descriptions, dates, locations, and categories.
-- Submit feedback through a simple interface.
-- Connect frontend pages with backend APIs.
-- Manage event and feedback data through the application.
-- Provide an admin interface for event-related management.
-- Organize frontend assets using HTML, CSS, and JavaScript.
+- Submit feedback through a simple interface
+- Connect the frontend with backend APIs
+- Handle and validate user input
+- Display feedback data through the application
+- Provide a structured way to collect event responses
 
 ## Project Preview
 
@@ -29,9 +30,7 @@ A web-based application for exploring events and managing event feedback. Built 
 
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Node.js, Express.js
-- **Database:** As configured in the project
-- **Package Management:** npm
-- **Tools:** Git, GitHub, Visual Studio Code
+- **Data Storage:** As configured in the project
 
 ## Project Structure
 
@@ -79,34 +78,21 @@ npm install
 node server.js
 ```
 
-Open the local URL displayed in the terminal to use the application. If the server runs on port 3000, visit `http://localhost:3000`.
-
-## Database
-
-The project includes a separate `database.js` module for database initialization and data operations. The exact storage behaviour depends on the current database configuration.
-
-## Testing
-
-Review `test.js` for the available tests and their requirements. Run `npm test` if a test script is configured in `package.json`.
+Open the local URL displayed in the terminal to use the application.
 
 ## What I Learned
 
-While building this project, I worked on connecting frontend functionality with backend APIs, organizing application files, handling user input, and understanding how different parts of a web application work together.
+While building this project, I worked on connecting frontend functionality with backend APIs, handling user input, organizing application files, and understanding how different parts of a web application work together.
 
 ## Future Improvements
 
-- Add user authentication and role-based access.
-- Improve event search and filtering.
-- Expand feedback analytics and reporting.
-- Improve validation and error handling.
-- Enhance responsive design and accessibility.
+- Add user authentication
+- Improve feedback analytics and reporting
+- Enhance input validation and error handling
+- Improve the overall user experience
 
 ## Author
 
 **Pranav Thakur**
 
-Computer Science Engineering Student | Full Stack Development
-
 GitHub: [pranavvv-git](https://github.com/pranavvv-git)
-
-This project is part of my hands-on software development journey, focused on building practical web applications and strengthening backend development skills.

@@ -617,3 +617,128 @@ footer {
     text-align: center;
   }
 }
+/* Event Feedback System — Custom Teal Theme */
+
+:root {
+  --primary-hsl: 172, 66%, 45%;
+  --primary: hsl(var(--primary-hsl));
+  --primary-hover: hsl(172, 66%, 36%);
+  --primary-glow: rgba(45, 212, 191, 0.14);
+  --primary-glow-strong: rgba(45, 212, 191, 0.30);
+
+  --bg-gradient: radial-gradient(circle at 50% 0%, #172c32 0%, #101820 65%, #0b1117 100%);
+  --bg-color: #0b1117;
+  --card-bg: rgba(23, 38, 46, 0.76);
+  --card-border: rgba(148, 163, 184, 0.13);
+  --card-hover-border: rgba(45, 212, 191, 0.38);
+
+  --text-main: #edf7f6;
+  --text-muted: #9aafb5;
+  --text-inverse: #071513;
+}
+
+/* Navbar and branding */
+header {
+  background: rgba(11, 17, 23, 0.82);
+}
+
+.logo-text {
+  background: linear-gradient(to right, #f0fdfa, #5eead4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-accent {
+  color: #2dd4bf;
+  -webkit-text-fill-color: #2dd4bf;
+}
+
+.nav-link.active {
+  color: #5eead4;
+  border-color: rgba(45, 212, 191, 0.24);
+}
+
+/* Hero section */
+.hero-tag {
+  border-color: rgba(45, 212, 191, 0.25);
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.30); }
+  70% { box-shadow: 0 0 0 10px rgba(45, 212, 191, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); }
+}
+
+.hero-title {
+  background: linear-gradient(135deg, #f0fdfa 25%, #5eead4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Buttons */
+.btn-primary {
+  color: #071513;
+}
+
+.btn-secondary:hover {
+  border-color: rgba(45, 212, 191, 0.30);
+}
+
+/* Headings and cards */
+.section-title {
+  background: linear-gradient(to right, #f0fdfa, #a5c7c8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-tag.frontend {
+  color: #67e8f9;
+  background: rgba(103, 232, 249, 0.08);
+  border-color: rgba(103, 232, 249, 0.18);
+}
+
+.card-tag.ai-ml {
+  color: #c4b5fd;
+  background: rgba(196, 181, 253, 0.08);
+  border-color: rgba(196, 181, 253, 0.18);
+}
+
+.card-tag.cloud {
+  color: #5eead4;
+  background: rgba(94, 234, 212, 0.08);
+  border-color: rgba(94, 234, 212, 0.18);
+}
+
+.card-tag.blockchain {
+  color: #fcd34d;
+  background: rgba(252, 211, 77, 0.08);
+  border-color: rgba(252, 211, 77, 0.18);
+}
+
+/* Feedback rating */
+.rating-widget label:hover,
+.rating-widget label:hover ~ label,
+.rating-widget input:checked ~ label {
+  color: #fbbf24;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.30);
+}
+
+.fb-stars {
+  color: #fbbf24;
+}
+
+/* Dashboard and feedback details */
+.summary-num,
+.meta-icon,
+.social-link:hover {
+  color: var(--primary);
+}
+
+.fb-event-name {
+  color: #5eead4;
+}
+
+/* Footer */
+footer {
+  background: rgba(11, 17, 23, 0.88);
+}
