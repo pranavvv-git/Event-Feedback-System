@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events - Sysslan IT Solutions</title>
+  <meta name="description" content="Browse our upcoming and past events, workshops, and cohorts.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Glassmorphic Navbar -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo-link">
+        <div class="logo-text">Sysslan <span class="logo-accent">IT Solutions</span></div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
+          <li><a href="events.html" class="nav-link active" id="nav-events">Events</a></li>
+          <li><a href="feedback.html" class="nav-link" id="nav-feedback">Feedback</a></li>
+          <li><a href="admin.html" class="nav-link" id="nav-admin">Dashboard</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <h2 class="section-title">Our Cohorts & Events</h2>
+    
+    <!-- Grid of Events (loaded dynamically) -->
+    <div class="grid" id="events-grid">
+      <!-- Loading Skeleton / Placeholder -->
+      <div class="card" style="opacity: 0.6;">
+        <span class="card-tag">Loading...</span>
+        <h3 class="card-title">Fetching Events</h3>
+        <p class="card-body">Connecting to the Sysslan IT Solutions server to retrieve active cohorts and events...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-container">
+      <div>
+        <p>&copy; 2026 Sysslan IT Solutions. All rights reserved.</p>
+      </div>
+      <div class="footer-socials">
+        <a href="https://linkedin.com/company/sysslan-it-solutions" target="_blank" class="social-link">LinkedIn</a>
+        <a href="mailto:info@sysslan.com" class="social-link">Email</a>
+        <a href="https://www.sysslan.com" target="_blank" class="social-link">Website</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App JavaScript logic -->
+  <script src="app.js"></script>
+  <script>
+    // Initialize events page loading
+    document.addEventListener('DOMContentLoaded', () => {
+      loadEventsPage();
+    });
+  </script>
+</body>
+</html>

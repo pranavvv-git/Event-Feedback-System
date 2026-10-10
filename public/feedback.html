@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Give Feedback - Sysslan IT Solutions</title>
+  <meta name="description" content="Submit your feedback regarding our events.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Glassmorphic Navbar -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo-link">
+        <div class="logo-text">Sysslan <span class="logo-accent">IT Solutions</span></div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
+          <li><a href="events.html" class="nav-link" id="nav-events">Events</a></li>
+          <li><a href="feedback.html" class="nav-link active" id="nav-feedback">Feedback</a></li>
+          <li><a href="admin.html" class="nav-link" id="nav-admin">Dashboard</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <div class="form-container">
+      <h2 class="section-title">Event Feedback Form</h2>
+      
+      <!-- Error Display Banner (Hidden by default) -->
+      <div id="error-banner" class="error-banner" style="display: none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="error-message"></span>
+      </div>
+
+      <!-- Main Form Wrapper -->
+      <div class="card" id="feedback-card">
+        <form id="feedback-form" novalidate>
+          
+          <!-- Name Field -->
+          <div class="form-group">
+            <label for="name">Full Name <span class="required">*</span></label>
+            <input type="text" id="name" placeholder="John Doe" required>
+            <div class="error-msg" id="name-error" style="display: none;">Name is required.</div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="john@example.com" required>
+            <div class="error-msg" id="email-error" style="display: none;">Please enter a valid email address.</div>
+          </div>
+
+          <!-- Event Selection Field (populated dynamically) -->
+          <div class="form-group">
+            <label for="event_id">Event / Cohort <span class="required">*</span></label>
+            <select id="event_id" required>
+              <option value="" disabled selected>Select an event...</option>
+            </select>
+            <div class="error-msg" id="event-error" style="display: none;">Please select an event.</div>
+          </div>
+
+          <!-- Rating Widget (Star-rating custom styling) -->
+          <div class="form-group">
+            <label>Rating <span class="required">*</span></label>
+            <div class="rating-widget">
+              <input type="radio" id="star5" name="rating" value="5">
+              <label for="star5" title="5 stars">&#9733;</label>
+              
+              <input type="radio" id="star4" name="rating" value="4">
+              <label for="star4" title="4 stars">&#9733;</label>
+              
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="star3" title="3 stars">&#9733;</label>
+              
+              <input type="radio" id="star2" name="rating" value="2">
+              <label for="star2" title="2 stars">&#9733;</label>
+              
+              <input type="radio" id="star1" name="rating" value="1">
+              <label for="star1" title="1 star">&#9733;</label>
+            </div>
+            <div class="error-msg" id="rating-error" style="display: none; margin-top: 2px;">Please select a rating.</div>
+          </div>
+
+          <!-- Comments Field -->
+          <div class="form-group">
+            <label for="comments">Comments & Suggestions</label>
+            <textarea id="comments" rows="5" placeholder="Share your experience or suggestions for improvement..."></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Submit Feedback
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-container">
+      <div>
+        <p>&copy; 2026 Sysslan IT Solutions. All rights reserved.</p>
+      </div>
+      <div class="footer-socials">
+        <a href="https://linkedin.com/company/sysslan-it-solutions" target="_blank" class="social-link">LinkedIn</a>
+        <a href="mailto:info@sysslan.com" class="social-link">Email</a>
+        <a href="https://www.sysslan.com" target="_blank" class="social-link">Website</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App JavaScript logic -->
+  <script src="app.js"></script>
+  <script>
+    // Initialize feedback page logic
+    document.addEventListener('DOMContentLoaded', () => {
+      initFeedbackForm();
+    });
+  </script>
+</body>
+</html>

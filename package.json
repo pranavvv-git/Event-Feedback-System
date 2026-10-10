@@ -1,0 +1,16 @@
+{
+  "name": "event-feedback-system",
+  "version": "1.0.0",
+  "description": "Full Stack Event Feedback Management System for Sysslan IT Solutions",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "morgan": "^1.10.0",
+    "sqlite3": "^5.1.7"
+  }
+}
