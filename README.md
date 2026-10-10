@@ -1,44 +1,37 @@
 # Event Feedback System
 
-A web-based application for exploring events and managing event feedback. Built with Node.js, it combines a frontend interface, server-side logic, and database integration to provide a foundation for event and feedback management.
+A web-based application for exploring events and managing event feedback. Built with Node.js, it connects a frontend interface with backend APIs and database operations.
 
 ## Features
 
-- Event listings with titles, descriptions, dates, locations, and categories.
-- Dedicated pages for browsing events and interacting with the application.
-- Backend request handling using Node.js.
-- Database operations managed through a separate database module.
-- Sample event data for development and testing.
-- Admin interface for event-related management, where implemented.
-- Organized frontend assets using HTML, CSS, and JavaScript.
-- Local development and testing support.
+- Browse events with details such as titles, descriptions, dates, locations, and categories.
+- Submit feedback through a simple interface.
+- Connect frontend pages with backend APIs.
+- Manage event and feedback data through the application.
+- Provide an admin interface for event-related management.
+- Organize frontend assets using HTML, CSS, and JavaScript.
 
 ## Project Preview
 
-Add screenshots of the running application here.
+### Home Page
+![Home Page](docs/home.png.png)
 
-**Home Page**
+### Events Page
+![Events Page](docs/event.png.png)
 
-![Event Feedback System Home Page](<img width="865" height="446" alt="feed back system front" src="https://github.com/user-attachments/assets/1c5bd655-6732-4d7b-b327-76d186e6e9d5" />
-)
+### Feedback Page
+![Feedback Page](docs/feedback.png.png)
 
-**Events Page**
-
-![Event Feedback System Events Page](docs/events.png)
-
-**Feedback Page**
-
-![Event Feedback System Feedback Page](docs/feedback.png)
-
-*Replace these image paths with your actual screenshots after adding them to the repository.*
+### Dashboard
+![Dashboard](docs/dashboard.png.png)
 
 ## Tech Stack
 
-- **Backend:** Node.js
 - **Frontend:** HTML, CSS, JavaScript
-- **Database:** SQLite / configured local database
+- **Backend:** Node.js, Express.js
+- **Database:** As configured in the project
 - **Package Management:** npm
-- **Development Tools:** Git, GitHub, Visual Studio Code
+- **Tools:** Git, GitHub, Visual Studio Code
 
 ## Project Structure
 
@@ -60,85 +53,52 @@ event-feedback-system/
 └── README.md
 ```
 
-## Requirements
-
-- Node.js and npm
-- Git (optional, for cloning the repository)
-
 ## Getting Started
 
-### Installation
-
-Clone the repository:
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/pranavvv-git/Event-Feedback-System.git
 ```
 
-Navigate to the project directory:
+### 2. Navigate to the project folder
 
 ```bash
 cd Event-Feedback-System
 ```
 
-Install dependencies:
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-### Run the Application
-
-Start the server using the script configured in `package.json`. If a `start` script is available:
-
-```bash
-npm start
-```
-
-Otherwise, run the server directly:
+### 4. Start the server
 
 ```bash
 node server.js
 ```
 
-Open the local address displayed in the terminal. If the server uses port 3000, visit:
-
-```text
-http://localhost:3000
-```
+Open the local URL displayed in the terminal to use the application. If the server runs on port 3000, visit `http://localhost:3000`.
 
 ## Database
 
-The application includes a dedicated `database.js` module for database initialization and data operations.
-
-The project contains a local database file for development. Database configuration and storage behaviour depend on the implementation in `database.js`.
+The project includes a separate `database.js` module for database initialization and data operations. The exact storage behaviour depends on the current database configuration.
 
 ## Testing
 
-Run the configured test script, if available:
+Review `test.js` for the available tests and their requirements. Run `npm test` if a test script is configured in `package.json`.
 
-```bash
-npm test
-```
+## What I Learned
 
-You can also review `test.js` for the project's test coverage and execution requirements.
-
-## Key Learning Areas
-
-- Building a web application with Node.js.
-- Connecting frontend components with backend logic.
-- Managing persistent application data.
-- Organizing code into maintainable modules.
-- Handling application requests and debugging issues.
-- Using npm and Git for project development.
+While building this project, I worked on connecting frontend functionality with backend APIs, organizing application files, handling user input, and understanding how different parts of a web application work together.
 
 ## Future Improvements
 
 - Add user authentication and role-based access.
-- Improve event search, filtering, and sorting.
-- Expand feedback submission and rating functionality.
-- Add feedback analytics and reporting.
-- Improve validation, error handling, and automated testing.
+- Improve event search and filtering.
+- Expand feedback analytics and reporting.
+- Improve validation and error handling.
 - Enhance responsive design and accessibility.
 
 ## Author
@@ -149,7 +109,4 @@ Computer Science Engineering Student | Full Stack Development
 
 GitHub: [pranavvv-git](https://github.com/pranavvv-git)
 
----
-
 This project is part of my hands-on software development journey, focused on building practical web applications and strengthening backend development skills.
-
